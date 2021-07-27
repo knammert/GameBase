@@ -8,7 +8,6 @@ class HelloController extends Controller
 {
     public function hello(string $name)
     {
-
         return view('hello.hello', ['requestName' => $name]);
     }
 }

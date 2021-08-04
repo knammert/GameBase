@@ -1,0 +1,1 @@
+Lista jest pusta

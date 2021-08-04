@@ -22,11 +22,11 @@ Route::get('/', function () {
 Route::get('users', 'UserController@list')
     ->name('get.users');
 
-Route::get('users/{id}', 'User\ProfilController@show')
-    ->name('get.user.profile');
+//Route::get('users/{id}', 'User\ProfilController@show')
+// ->name('get.user.profile');
 
-Route::get('users/test/{id}', 'UserController@testShow')
-    ->name('get.user.test.show');
+Route::get('users/{id}', 'UserController@show')
+    ->name('get.user.show');
 
 Route::post('users/test/{id}', 'UserController@testStore')
     ->name('get.user.test.store');

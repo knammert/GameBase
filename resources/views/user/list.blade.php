@@ -1,9 +1,9 @@
 @extends('layout.main')
 @section('content')
-    
+
 
     <h1>Users</h1>
-   
+
     <table>
         <thead>
             <tr>
@@ -24,12 +24,12 @@
                     <td>Link</td>
                 </tr>
             @endforeach
-            
+
         </tbody>
     </table>
     <hr/>
     <hr/>
-       
+
         <table>
             <b>Foreach</b>
             <thead>
@@ -95,7 +95,7 @@
             @php
                 $j=0;
             @endphp
-        @while ($j<count($users))     
+        @while ($j<count($users))
         @include('user.listRow',['userData'=>$user])
         </tr>
             @php
@@ -107,17 +107,9 @@
         <hr/>
         <hr/>
         @each('user.listRow',$users , 'userData','user.emptyRow')
-        
-        @switch()
-            @case(1)
-                
-                @break
-            @case(2)
 
-                @break
-        
-            @default
-                
-        @endswitch
+
+
+
 @endsection
-    
+

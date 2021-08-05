@@ -24,13 +24,22 @@ class UserController extends Controller
             ];
         }
 
+
+
+        //Zadanie
+        $succesOrFail = $faker->numberBetween(0, 1);
+        $request->session()->flash('succesOrFail', $succesOrFail);
+
         return view('user.list', [
             'users' => $users
         ]);
     }
 
-    public function Show(int $id)
+    public function Show(Request $request, int $id)
     {
+
+
+
         $faker = Factory::create();
         $user = [
             'id' => $id,

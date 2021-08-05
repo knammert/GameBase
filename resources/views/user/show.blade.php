@@ -1,45 +1,25 @@
-
 @extends('layout.main')
 
-@section('title','Użytkownik')
-    
+@section('title', 'Użytkownik')
 
 @section('sidebar')
-@parent
-Sidebar z dziecka
-    
+    @parent
+    <div>Lista użytkowników: <a href="{{ route('get.users') }}">Link</a></div>
 @endsection
 
-@auth
-    Jest zalogowany
-@endauth
-
-@guest
-    To jest gość
-@endguest
-
 @section('content')
-    <h3>Informacje o użytkowniku</h3>
-    <ul>
-        <li>id: {{$user['id']}}</li>
-        <li>Imie: {{$user['firstName']}}</li>
-        <li>Nazwisko: {{$user['lastName']}}</li>
-        <li>Miasto: {{$user['city']}}</li>
-        <li>
-            Wiek: {{$user['age']}} 
-            @if ($user['age']>=18)
-                (jest to osoba dorosła)      
-            @elseif (($user['age']>=16))
-                (nastolatek)
-            @else
-                (dziecko)
-            @endif
-        </li>
-        @isset($user)
-            Nick:xxx            
-        @endisset
-    </ul>
-    <div>
+    <div class="card">
+        <h5 class="card-header">{{ $user['name'] }}</h5>
+        <div class="card-body">
+            <ul>
+                <li>Id: {{ $user['id'] }}</li>
+                <li>Imię: {{ $user['firstName'] }}</li>
+                <li>Nazwisko: {{ $user['lastName'] }}</li>
+                <li>Miasto: {{ $user['city'] }}</li>
+                <li>Wiek: {{ $user['age'] }}</li>
+            </ul>
 
+            <a href="{{ route('get.users') }}" class="btn btn-light">Lista użytkowników</a>
+        </div>
     </div>
 @endsection

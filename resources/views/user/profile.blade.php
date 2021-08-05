@@ -1,6 +1,7 @@
 <html>
-    <h1>Profil</h1>
+    <h1>Application: {{ $applicationName }}</h1>
+    <h2>Profil</h2>
     <ul>
-        <li>Name:Tom</li>
+        <li>Name: Tomaaa</li>
     </ul>
 </html>

@@ -1,4 +1,2 @@
-<html>
-    <h1>Address</h1>
-   
-</html>
+<h2>Address</h2>
+{{ dd($address) }}

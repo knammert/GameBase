@@ -12,6 +12,8 @@ class UserController extends Controller
 {
     public function list(Request $request)
     {
+
+
         $user = [];
 
         $faker = Factory::create();
@@ -23,9 +25,6 @@ class UserController extends Controller
                 'name' => $faker->firstName
             ];
         }
-
-
-
         //Zadanie
         $succesOrFail = $faker->numberBetween(0, 1);
         $request->session()->flash('succesOrFail', $succesOrFail);

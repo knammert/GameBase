@@ -15,9 +15,8 @@ use Symfony\Component\Routing\Loader\Configurator\RouteConfigurator;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'Home\MainPage')
+    ->name('home.mainPage');
 
 Route::get('users', 'UserController@list')
     ->name('get.users');

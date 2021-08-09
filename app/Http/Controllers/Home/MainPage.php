@@ -17,49 +17,6 @@ class MainPage extends Controller
      */
     public function __invoke()
     {
-
-        DB::table('generes')->truncate();
-
-
-        DB::table('generes')->insert(
-            [
-                'name' => 'RPG',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ]
-        );
-
-        DB::table('generes')->insert([
-            [
-                'name' => 'Adventure',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'name' => 'FPS',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ]
-        ]);
-
-        DB::table('generes')->insertOrIgnore([
-            [
-                'name' => 'Adventure',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'name' => 'Action ',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'name' => 'FPS',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ]
-        ]);
-
         return view('home.main');
     }
 }

@@ -36,7 +36,7 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        @include('shared.messages')
+                        {{-- @include('shared.messages') --}}
                         @yield('content')
                     </div>
                 </main>

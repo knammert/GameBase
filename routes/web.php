@@ -35,10 +35,14 @@ Route::get('users/{id}/address', 'User\ShowAddress')
     ->where(['id' => '[0-9]+']);
 
 
+Route::get('games/dashboard', 'GameController@dashboard')
+    ->name('games.dashboard');
+
 Route::resource('games', 'GameController')
     ->only([
         'index', 'show'
     ]);
+
 
 Route::resource('admin/games', 'GameController')
     ->only([

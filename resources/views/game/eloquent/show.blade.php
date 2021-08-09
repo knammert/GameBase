@@ -13,7 +13,7 @@
                 <li class="list-group-item">{{$game->description}}</li>
             </ul>
         </div>
-        <a href="{{route('games.index')}}" class="btn btn-dark">Powrót do listy</a>
+        <a href="{{route('games.e.list')}}" class="btn btn-dark">Powrót do listy</a>
     @else
         <h5 class="card-header">Brak elementów do wyświetlenia</h5>
     @endif

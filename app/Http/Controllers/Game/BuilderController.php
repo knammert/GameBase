@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Game;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
-class GameController extends Controller
+class BuilderController extends Controller
 {
 
     public function index()
@@ -17,7 +18,7 @@ class GameController extends Controller
             // ->offset(2)
             ->Paginate(10);
 
-        return view('game.list', [
+        return view('game.builder.list', [
             'games' => $games
         ]);
     }
@@ -47,7 +48,7 @@ class GameController extends Controller
             ->get();
 
 
-        return view('game.dashboard', [
+        return view('game.builder.dashboard', [
             'stats' => $stats,
             'topGames' => $topGames
         ]);
@@ -82,10 +83,12 @@ class GameController extends Controller
     public function show(int $gameId)
     {
         $game = DB::table('games')
-            ->find($gameId);
+            ->join('generes', 'games.genere_id', '=', 'generes.id')
+            ->select('games.id', 'games.title', 'games.publisher', 'games.description', 'generes.name')
+            ->where('games.id', $gameId)
+            ->first();
 
-
-        return view('game.show', [
+        return view('game.builder.show', [
             'game' => $game
         ]);
     }

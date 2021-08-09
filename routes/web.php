@@ -18,11 +18,9 @@ use Symfony\Component\Routing\Loader\Configurator\RouteConfigurator;
 Route::get('/', 'Home\MainPage')
     ->name('home.mainPage');
 
+//  USERS
 Route::get('users', 'UserController@list')
     ->name('get.users');
-
-//Route::get('users/{id}', 'User\ProfilController@show')
-// ->name('get.user.profile');
 
 Route::get('users/{id}', 'UserController@show')
     ->name('get.user.show');
@@ -34,17 +32,36 @@ Route::get('users/{id}/address', 'User\ShowAddress')
     ->name('get.user.address')
     ->where(['id' => '[0-9]+']);
 
+//  GAMES
 
-Route::get('games/dashboard', 'GameController@dashboard')
-    ->name('games.dashboard');
+Route::group([
+    'namespace' => 'Game',
+    'prefix' => 'b/games',
+    'as' => 'games.b.'
 
-Route::resource('games', 'GameController')
-    ->only([
-        'index', 'show'
-    ]);
+], function () {
+    Route::get('dashboard', 'BuilderController@dashboard')
+        ->name('dashboard');
 
+    Route::get('', 'BuilderController@index')
+        ->name('list');
 
-Route::resource('admin/games', 'GameController')
-    ->only([
-        'store', 'create', 'destroy'
-    ]);
+    Route::get('{game}', 'BuilderController@show')
+        ->name('show');
+});
+
+Route::group([
+    'namespace' => 'Game',
+    'prefix' => 'e/games',
+    'as' => 'games.e.'
+
+], function () {
+    Route::get('dashboard', 'EloquentController@dashboard')
+        ->name('dashboard');
+
+    Route::get('', 'EloquentController@index')
+        ->name('list');
+
+    Route::get('{game}', 'EloquentController@show')
+        ->name('show');
+});

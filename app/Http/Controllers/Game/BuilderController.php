@@ -12,8 +12,8 @@ class BuilderController extends Controller
     public function index()
     {
         $games = DB::table('games')
-            ->join('generes', 'games.genere_id', '=', 'generes.id')
-            ->select('games.id', 'title', 'score', 'generes.name')
+            ->join('genres', 'games.genre_id', '=', 'genres.id')
+            ->select('games.id', 'title', 'score', 'genres.name')
             // ->limit(2)
             // ->offset(2)
             ->Paginate(10);
@@ -42,8 +42,8 @@ class BuilderController extends Controller
         ];
 
         $topGames = DB::table('games')
-            ->join('generes', 'games.genere_id', '=', 'generes.id')
-            ->select('games.id', 'title', 'score', 'generes.name')
+            ->join('genres', 'games.genre_id', '=', 'genres.id')
+            ->select('games.id', 'title', 'score', 'genres.name')
             ->where('score', '>', '90')
             ->get();
 
@@ -83,8 +83,8 @@ class BuilderController extends Controller
     public function show(int $gameId)
     {
         $game = DB::table('games')
-            ->join('generes', 'games.genere_id', '=', 'generes.id')
-            ->select('games.id', 'games.title', 'games.publisher', 'games.description', 'generes.name')
+            ->join('genres', 'games.genre_id', '=', 'genres.id')
+            ->select('games.id', 'games.title', 'games.publisher', 'games.description', 'genres.name')
             ->where('games.id', $gameId)
             ->first();
 

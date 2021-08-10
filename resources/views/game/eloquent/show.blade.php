@@ -9,7 +9,7 @@
                 <li class="list-group-item">{{$game->id}}</li>
                 <li class="list-group-item">{{$game->title}}</li>
                 <li class="list-group-item">{{$game->publisher}}</li>
-                <li class="list-group-item">{{$game->name}}</li>
+                <li class="list-group-item">{{$game->genre->name}}</li>
                 <li class="list-group-item">{{$game->description}}</li>
             </ul>
         </div>

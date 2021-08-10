@@ -20,7 +20,7 @@
                     <th scope="row">{{$game->id}}</th>
                     <td>{{$game->title}}</td>
                     <td>{{$game->score}}</td>
-                    <td>{{$game->name}}</td>
+                    <td>{{$game->genre->name}}</td>
                     <td><a href="{{route('games.e.show',['game'=>$game->id])}}">Szczegóły</a></td>
                 </tr>
             @endforeach

@@ -5,18 +5,18 @@ namespace App\Http\Controllers\Game;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Game;
 
 class EloquentController extends Controller
 {
 
     public function index()
     {
-        $games = DB::table('games')
-            ->join('generes', 'games.genere_id', '=', 'generes.id')
-            ->select('games.id', 'title', 'score', 'generes.name')
-            // ->limit(2)
-            // ->offset(2)
-            ->Paginate(10);
+        $games = Game::Paginate(10);
+        //->join('generes', 'games.genere_id', '=', 'generes.id')
+        // ->select('games.id', 'title', 'score', 'generes.name')
+        // ->limit(2)
+        // ->offset(2)
 
         return view('game.eloquent.list', [
             'games' => $games
@@ -31,22 +31,18 @@ class EloquentController extends Controller
      */
     public function dashboard()
     {
-        $stats = [
-            'count' => DB::table('games')->count(),
-            'countScoreGtFive' => DB::table('games')->where('score', '>', 50)->count(),
-            'max' => DB::table('games')->max('score'),
-            'min' => DB::table('games')->min('score'),
-            'avg' => DB::table('games')->avg('score'),
-            'countScoreGtNine' => DB::table('games')->where('score', '>', 90)->count(),
-
-        ];
-
-        $topGames = DB::table('games')
-            ->join('generes', 'games.genere_id', '=', 'generes.id')
-            ->select('games.id', 'title', 'score', 'generes.name')
-            ->where('score', '>', '90')
+        $topGames = Game::where('score', '>', '90')
             ->get();
 
+        $stats = [
+            'count' => Game::count(),
+            'countScoreGtFive' => Game::where('score', '>', 50)->count(),
+            'max' => Game::max('score'),
+            'min' => Game::min('score'),
+            'avg' => Game::avg('score'),
+            'countScoreGtNine' => Game::where('score', '>', 90)->count(),
+
+        ];
 
         return view('game.eloquent.dashboard', [
             'stats' => $stats,
@@ -82,11 +78,10 @@ class EloquentController extends Controller
      */
     public function show(int $gameId)
     {
-        $game = DB::table('games')
-            ->join('generes', 'games.genere_id', '=', 'generes.id')
-            ->select('games.id', 'games.title', 'games.publisher', 'games.description', 'generes.name')
-            ->where('games.id', $gameId)
+        $game = Game::where('games.id', $gameId)
             ->first();
+
+
 
         return view('game.eloquent.show', [
             'game' => $game

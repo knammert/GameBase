@@ -118,13 +118,13 @@
         </tr>
         </thead>
         <tbody>
-            @foreach ($topGames ?? [] as $topGame )
+            @foreach ($topGames ?? [] as $game )
                 <tr>
                     <th scope="row">{{$loop->iteration}}</th>
-                    <td>{{$topGame->title}}</td>
-                    <td>{{$topGame->score}}</td>
-                    <td>{{$topGame->name}}</td>
-                    <td><a href="{{route('games.e.show',['game'=>$topGame->id])}}">Szczegóły</a></td>
+                    <td>{{$game->title}}</td>
+                    <td>{{$game->score}}</td>
+                    <td>{{$game->genre->name}}</td>
+                    <td><a href="{{route('games.e.show',['game'=>$game->id])}}">Szczegóły</a></td>
                 </tr>
             @endforeach
         </tbody>

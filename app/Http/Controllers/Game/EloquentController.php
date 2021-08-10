@@ -12,7 +12,32 @@ class EloquentController extends Controller
 
     public function index()
     {
-        $games = Game::Paginate(10);
+        // $newGame = new Game();
+        // $newGame->title = "Tomb Raider";
+        // $newGame->description = "Przygoda na morzu";
+        // $newGame->score = 92;
+        // $newGame->publisher = "Edios";
+        // $newGame->genre_id = 4;
+        // $newGame->save();
+
+        // Game::create([
+        //     'title' => 'Tomb Raider 4',
+        //     'description' => 'Przygoda na morzu',
+        //     'score' => 80,
+        //     'publisher' => 'Edios',
+        //     'genre_id' => 4
+        // ]);
+
+        // $deleteGame = Game::where([
+        //     'publisher' => 'Edios'
+        // ])
+        //     ->delete();
+
+        $games = Game::with('genre')
+            ->publisher('Edios')
+            ->Paginate(10);
+
+
         //->join('generes', 'games.genere_id', '=', 'generes.id')
         // ->select('games.id', 'title', 'score', 'generes.name')
         // ->limit(2)
@@ -31,7 +56,8 @@ class EloquentController extends Controller
      */
     public function dashboard()
     {
-        $topGames = Game::where('score', '>', '90')
+        $topGames = Game::with('genre')
+            ->best()
             ->get();
 
         $stats = [

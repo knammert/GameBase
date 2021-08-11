@@ -33,9 +33,7 @@ class EloquentController extends Controller
         // ])
         //     ->delete();
 
-        $games = Game::with('genre')
-            ->publisher('Edios')
-            ->Paginate(10);
+        $games = Game::Paginate(10);
 
 
         //->join('generes', 'games.genere_id', '=', 'generes.id')
@@ -104,10 +102,7 @@ class EloquentController extends Controller
      */
     public function show(int $gameId)
     {
-        $game = Game::where('games.id', $gameId)
-            ->first();
-
-
+        $game = Game::find($gameId);
 
         return view('game.eloquent.show', [
             'game' => $game

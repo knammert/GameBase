@@ -3,6 +3,7 @@
 use App\Http\Controllers\GameController;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\Routing\Loader\Configurator\RouteConfigurator;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,7 +54,7 @@ Route::group([
 Route::group([
     'namespace' => 'Game',
     'prefix' => 'e/games',
-    'as' => 'games.e.'
+    'as' => 'games.e.',
 
 ], function () {
     Route::get('dashboard', 'EloquentController@dashboard')
@@ -65,3 +66,7 @@ Route::group([
     Route::get('{game}', 'EloquentController@show')
         ->name('show');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

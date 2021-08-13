@@ -6,15 +6,23 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Game;
+use App\Repository\GameRepository;
 
-class EloquentController extends Controller
+
+class GameController extends Controller
 {
+    private GameRepository $gameRepository;
+
+    public function __construct(GameRepository $repository)
+    {
+        $this->gameRepository = $repository;
+    }
 
     public function index()
     {
-        $games = Game::Paginate(10);
+        $games = $this->gameRepository->allPaginated(10);
 
-        return view('game.eloquent.list', [
+        return view('game.list', [
             'games' => $games
         ]);
     }
@@ -27,21 +35,10 @@ class EloquentController extends Controller
      */
     public function dashboard()
     {
-        $topGames = Game::with('genre')
-            ->best()
-            ->get();
+        $topGames = $this->gameRepository->best();
+        $stats = $this->gameRepository->stats();
 
-        $stats = [
-            'count' => Game::count(),
-            'countScoreGtFive' => Game::where('score', '>', 50)->count(),
-            'max' => Game::max('score'),
-            'min' => Game::min('score'),
-            'avg' => Game::avg('score'),
-            'countScoreGtNine' => Game::where('score', '>', 90)->count(),
-
-        ];
-
-        return view('game.eloquent.dashboard', [
+        return view('game.dashboard', [
             'stats' => $stats,
             'topGames' => $topGames
         ]);
@@ -75,9 +72,9 @@ class EloquentController extends Controller
      */
     public function show(int $gameId)
     {
-        $game = Game::find($gameId);
+        $game = $this->gameRepository->get($gameId);
 
-        return view('game.eloquent.show', [
+        return view('game.show', [
             'game' => $game
         ]);
     }

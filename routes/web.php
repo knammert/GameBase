@@ -69,6 +69,22 @@ Route::group(['middleware' => 'auth'], function () {
             ->name('show');
     });
 
+    Route::group([
+        'namespace' => 'Game',
+        'prefix' => 'games',
+        'as' => 'games.',
+
+    ], function () {
+        Route::get('dashboard', 'GameController@dashboard')
+            ->name('dashboard');
+
+        Route::get('', 'GameController@index')
+            ->name('list');
+
+        Route::get('{game}', 'GameController@show')
+            ->name('show');
+    });
+
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
 

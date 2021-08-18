@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Game;
 
+use App\Facade\Game;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\Game;
 use App\Repository\GameRepository;
 
 
@@ -20,10 +20,10 @@ class GameController extends Controller
 
     public function index()
     {
-        $games = $this->gameRepository->allPaginated(10);
-
         return view('game.list', [
-            'games' => $games
+            'games' => $this->gameRepository->allPaginated(10)
+            //  'games' => Game::allPaginated(10)
+
         ]);
     }
 

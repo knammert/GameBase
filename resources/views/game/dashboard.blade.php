@@ -106,6 +106,7 @@
     </div>
 
 </div>
+
 <div class="card-header font-weight-bold"><i class="bi bi-table >"></i> Najlepsze gry</div>
     <table class="table table-striped">
         <thead>
@@ -113,6 +114,7 @@
             <th scope="col">Lp</th>
             <th scope="col">Tytuł</th>
             <th scope="col">Ocena</th>
+            <th scope="col">SteamID</th>
             <th scope="col">Kategoria</th>
             <th scope="col">Opcje</th>
         </tr>
@@ -121,9 +123,10 @@
             @foreach ($topGames ?? [] as $game )
                 <tr>
                     <th scope="row">{{$loop->iteration}}</th>
-                    <td>{{$game->title}}</td>
+                    <td>{{$game->name}}</td>
                     <td>{{$game->score}}</td>
-                    <td>{{$game->genre->name}}</td>
+                    <td>{{$game->steamId}}</td>
+                    <td>{{ $game->genres->implode('name', ', ') }}</td>
                     <td><a href="{{route('games.show',['game'=>$game->id])}}">Szczegóły</a></td>
                 </tr>
             @endforeach

@@ -18,9 +18,9 @@
             @foreach ($games ?? [] as $game )
                 <tr>
                     <th scope="row">{{$game->id}}</th>
-                    <td>{{$game->title}}</td>
+                    <td>{{$game->name}}</td>
                     <td>{{$game->score}}</td>
-                    <td>{{$game->genre->name}}</td>
+                    <td>{{ $game->genres->implode('name', ', ') }}</td>
                     <td><a href="{{route('games.show',['game'=>$game->id])}}">Szczegóły</a></td>
                 </tr>
             @endforeach

@@ -10,29 +10,63 @@ use Illuminate\Database\Eloquent\Builder;
 class Game extends Model
 {
 
-    // protected static function booted(){
-    //     static::addGlobalScope(new LastWeekScope());
-    // }
-    protected $fillable=[
-        'title','score','description','publisher','genre_id'
+    protected $attributes = [
+        'metacritic_score' => null
     ];
 
-    public function genre()
+    protected $casts = [
+        'metacritic_score' => 'integer',
+        'steam_appid' => 'integer',
+    ];
+
+    // tablica z atrybutami które możemy uzupełniać przez create lub konstruktor
+    //protected $fillable = ['name', 'description', 'metacritic_score', 'publisher', 'genre_id'];
+
+    // ====> ATTRIBUTES <====
+
+    public function getScoreAttribute(): ?int
     {
-        return $this->belongsTo(Genre::class);
+        return $this->metacritic_score;
     }
 
-    public function scopeBest(Builder $builder): Builder
+    public function getSteamIdAttribute(): int
     {
-        return $builder->where('score', '>', 90);
+        return $this->steam_appid;
     }
 
-    public function scopePublisher(Builder $builder, string  $name): Builder
+    public function getShortDescriptionAttribute()
     {
-        return $builder->where('publisher', $name);
+        return $this->attributes['short_description'];
     }
 
-    // protected $attributes = [
-    //     'score' => 5
-    // ];
+    // ====> RELATIONS <====
+
+    public function genres()
+    {
+        return $this->belongsToMany('App\Models\Genre', 'gameGenres');
+    }
+
+    public function publishers()
+    {
+        return $this->belongsToMany('App\Models\Publisher', 'gamePublishers');
+    }
+
+    // ====> SCOPE <====
+
+    // using global scope
+    //protected static function booted()
+    //{
+    //    static::addGlobalScope(new LastWeekScope());
+    //}
+
+    public function scopeBest(Builder $query): Builder
+    {
+        return $query->where('metacritic_score', '>', 90)
+            ->orderBy('metacritic_score', 'desc');
+    }
+
+    public function scopePublisher(Builder $query, string $publisher): Builder
+    {
+        return $query->where('publisher', $publisher);
+    }
 }

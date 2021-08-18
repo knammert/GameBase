@@ -18,7 +18,7 @@ class GameServiceProvider extends ServiceProvider
     {
         $this->app->bind(
             GameRepository::class,
-            BuilderGameRepository::class,
+            EloquentGameRepository::class,
         );
     }
 

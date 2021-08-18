@@ -28,25 +28,32 @@ class GameRepository implements RepositoryGameRepository
 
     public function allPaginated($limit)
     {
-        return $this->gameModel->Paginate($limit);
+        return $this->gameModel
+            ->with('genres')
+            ->Paginate($limit);
     }
 
     public function best()
     {
-        return $this->gameModel->with('genre')
+        $topGames = $this->gameModel
             ->best()
             ->get();
+
+        // dd($topGames);
+        return  $topGames;
     }
 
     public function stats()
     {
+        $avg = $this->gameModel->avg('metacritic_score');
+        $avg = round((float)$avg, 1);
         return   [
             'count' => $this->gameModel->count(),
-            'countScoreGtFive' => $this->gameModel->where('score', '>', 50)->count(),
-            'max' => $this->gameModel->max('score'),
-            'min' => $this->gameModel->min('score'),
-            'avg' => $this->gameModel->avg('score'),
-            'countScoreGtNine' => $this->gameModel->where('score', '>', 90)->count(),
+            'countScoreGtFive' => $this->gameModel->where('metacritic_score', '>', 50)->count(),
+            'max' => $this->gameModel->max('metacritic_score'),
+            'min' => $this->gameModel->min('metacritic_score'),
+            'avg' => $avg,
+            'countScoreGtNine' => $this->gameModel->where('metacritic_score', '>', 90)->count(),
 
         ];
     }

@@ -3,19 +3,33 @@
 @section('content')
 <div class="card mt-4">
     @if(!empty($game))
-        <h5 class="card-header">{{$game->title}}</h5>
+        <h5 class="card-header">{{ $game->name }}</h5>
         <div class="card-body">
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">{{$game->id}}</li>
-                <li class="list-group-item">{{$game->title}}</li>
-                <li class="list-group-item">{{$game->publisher}}</li>
-                <li class="list-group-item">{{$game->genre->name}}</li>
-                <li class="list-group-item">{{$game->description}}</li>
+            <ul>
+                <li>Id: {{ $game->id }}</li>
+                <li>Nazwa: {{ $game->name }}</li>
+                <li>Wydawca: {{ $game->publishers->implode('name', ', ') }}</li>
+                <li>Gatunek:{{ $game->genres->implode('name', ', ') }}</li>
             </ul>
+            <div class="my-4">
+                <h4>Krótki opis</h3>
+                <div class="mx-2">{!! $game->short_description !!}</div>
+            </div>
+
+            <div class="my-4">
+                <h4>Opis</h3>
+                <div class="mx-2">{!! $game->description !!}</div>
+            </div>
+
+            <div class="my-4">
+                <h4>About</h3>
+                <div class="mx-2">{!! $game->about !!}</div>
+            </div>
+
+            <a href="{{ route('games.list') }}" class="btn btn-light">Lista gier</a>
         </div>
-        <a href="{{route('games.list')}}" class="btn btn-dark">Powrót do listy</a>
     @else
-        <h5 class="card-header">Brak elementów do wyświetlenia</h5>
+        <h5 class="card-header">Brak danych do wyświetlenia</h5>
     @endif
 </div>
 @endsection

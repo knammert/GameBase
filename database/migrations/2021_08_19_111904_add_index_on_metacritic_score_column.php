@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddPhoneUser extends Migration
+class AddIndexOnMetacriticScoreColumn extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddPhoneUser extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('phone')->nullable();
+        Schema::table('games', function (Blueprint $table) {
+            $table->index('metacritic_score', 'games_metacritic_score_index');
         });
     }
 
@@ -25,8 +25,8 @@ class AddPhoneUser extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('phone');
+        Schema::table('games', function (Blueprint $table) {
+            $table->dropIndex('games_metacritic_score_index');
         });
     }
 }

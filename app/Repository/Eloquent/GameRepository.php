@@ -30,13 +30,35 @@ class GameRepository implements RepositoryGameRepository
     {
         return $this->gameModel
             ->with('genres')
+            ->orderBy('created_at')
             ->Paginate($limit);
+    }
+
+    public function filterBy(?string $phrase, string $type = 'game', int $limit = 15)
+    {
+        $query = $this->gameModel
+            ->with('genres')
+            ->orderBy('created_at');
+
+        if ($type != 'all') {
+
+            $query->where('type', $type);
+        }
+
+        if ($phrase) {
+
+            $query->whereRaw('name like ?', ["$phrase%"]);
+        }
+
+
+        return $query->Paginate($limit);;
     }
 
     public function best()
     {
         $topGames = $this->gameModel
             ->best()
+            ->with('genres')
             ->get();
 
         // dd($topGames);

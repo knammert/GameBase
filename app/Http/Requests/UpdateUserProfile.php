@@ -45,7 +45,8 @@ class UpdateUserProfile extends FormRequest
             ],
             'phone' => [
                 'min:9'
-            ]
+            ],
+            'avatar' => 'nullable|file|image'
         ];
     }
 

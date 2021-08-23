@@ -12,11 +12,13 @@
     </div>
 @endif --}}
 
-<div class="card mb-3 mt-3" >
+<div class="card mb-3 mt-3 " >
     <div class="row g-0">
         <div class="col-md-4">
-            @if( $user-> avatar )
-                <div>Jest avatar</div>
+            @if ($user->avatar)
+            <div class="col-md-4">
+                <img src="{{asset('storage/'.$user->avatar)}}" alt="... "  class="user-avatar">
+            </div>
             @else
                 <img src="https://st.depositphotos.com/2101611/3925/v/600/depositphotos_39258143-stock-illustration-businessman-avatar-profile-picture.jpg" class="img-fluid rounded-start" alt="...">
             @endif
@@ -27,6 +29,19 @@
                 <!-- X-XSRF-TOKEN -->
                 @csrf
                 <div class="form-group">
+                    <div class='form-group'>
+                        <label for="avatar">Wybierz avatar...</label>
+                        <input
+                            type="file"
+                            class="form-control-file"
+                            id="avatar"
+                            name="avatar"
+                            accept="image/*"
+                            />
+                        @error('avatar')
+                            <div class='invalid-feedback d-block'>{{$message}}</div>
+                        @enderror
+                    </div>
                     <label for="name">Nazwa</label>
                     <input
                         type="text"

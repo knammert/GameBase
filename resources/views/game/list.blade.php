@@ -23,7 +23,7 @@
                     <option @if ($type =='demo') selected @endif value="demo">Demo</option>
                     <option @if ($type =='eposide') selected @endif value="eposide">Epizody</option>
                     <option @if ($type =='mod') selected @endif value="mod">Mody</option>
-                    <option @if ($type =='movie') selected @endif value="movie">Filmy</option>
+                    <option @if ($type =='movie') selected @endif value="movie">Filmy</option> 
                     <option @if ($type =='music') selected @endif value="music">Muzyka</option>
                     <option @if ($type =='series') selected @endif value="series">Serie</option>
                     <option @if ($type =='video') selected @endif value="video">Video</option>
@@ -41,6 +41,8 @@
             <th scope="col">Ocena</th>
             <th scope="col">Kategoria</th>
             <th scope="col">Opcje</th>
+            <th scope="col">Opcje</th>
+
         </tr>
         </thead>
         <tbody>

@@ -21,6 +21,21 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'Home\MainPage')
         ->name('home.mainPage');
 
+    //USERS - ME
+    Route::group([
+        'prefix' => 'me',
+        'as' => 'me.'
+    ], function () {
+        Route::get('profile', 'User\UserController@profile')
+            ->name('profile');
+
+        Route::get('edit', 'User\UserController@edit')
+            ->name('edit');
+
+        Route::post('update', 'User\UserController@update')
+            ->name('update');
+    });
+
     //  USERS
     Route::get('users', 'UserController@list')
         ->name('get.users');
@@ -85,7 +100,7 @@ Route::group(['middleware' => 'auth'], function () {
             ->name('show');
     });
 
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
 
 Auth::routes();

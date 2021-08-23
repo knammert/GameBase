@@ -18,13 +18,7 @@ class MainPage extends Controller
      */
     public function __invoke()
     {
-
-        $url = url('path/to/something');
-        dd($url);
-
         $user = Auth::user();
-
-
 
         return view('home.main', ['user' => $user]);
     }

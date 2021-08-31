@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
+
+
 class UserController extends Controller
 {
     private UserRepository $userRepository;
@@ -40,6 +42,7 @@ class UserController extends Controller
         $data = $request->validated();
 
         if (!empty($data['avatar'])) {
+
             $path = $data['avatar']->store('avatars', 'public');
 
             if ($path) {
@@ -47,7 +50,6 @@ class UserController extends Controller
                 $data['avatar'] = $path;
             }
         }
-
 
         $this->userRepository->updateModel(
             Auth::user(),
@@ -57,5 +59,16 @@ class UserController extends Controller
         return redirect()
             ->route('me.profile')
             ->with('status', 'Profil został zaktualizowany');
+    }
+
+    public function deleteProfilePicture()
+    {
+        $user = Auth::user();
+        Storage::disk('public')->delete($user->avatar);
+        $this->userRepository->deleteProfilePictureModel(Auth::user());
+
+        return redirect()
+            ->route('me.edit')
+            ->with('status', 'Zdjęcie profilowe zostało pomyślnie usunięte');
     }
 }

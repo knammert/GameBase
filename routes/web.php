@@ -34,6 +34,9 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::post('update', 'User\UserController@update')
             ->name('update');
+
+        Route::post('deleteProfilePicture', 'User\UserController@deleteProfilePicture')
+            ->name('deleteProfilePicture');
     });
 
     //  USERS

@@ -19,9 +19,16 @@
             <div class="col-md-4">
                 <img src="{{asset('storage/'.$user->avatar)}}" alt="... "  class="user-avatar">
             </div>
+            <div class="d-flex justify-content-center">
+                <form action="{{ route('me.deleteProfilePicture') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <button type="submit" class="btn btn-link mt-2 ">Usuń zdjęcie profilowe</button>
+                </form>
+            </div>
             @else
                 <img src="https://st.depositphotos.com/2101611/3925/v/600/depositphotos_39258143-stock-illustration-businessman-avatar-profile-picture.jpg" class="img-fluid rounded-start" alt="...">
             @endif
+
         </div>
       <div class="col-md-8">
         <div class="card-body">

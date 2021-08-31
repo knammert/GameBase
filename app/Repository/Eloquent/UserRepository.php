@@ -26,4 +26,10 @@ class UserRepository implements UserRepositoryInterface
 
         $user->save();
     }
+
+    public function deleteProfilePictureModel(User $user): void
+    {
+        $user->avatar = null;
+        $user->save();
+    }
 }

@@ -3,7 +3,28 @@
 @section('content')
 <div class="card mt-4">
     @if(!empty($game))
-        <h5 class="card-header">{{ $game->name }}</h5>
+        <h5 class="card-header">
+        {{ $game->name }}
+        @if ($userHasGame)
+        <form class="float-right m-0" method="post" action="{{route('me.games.remove')}}">
+            @method('delete')
+            @csrf
+            <div class="form-row">
+                <input type="hidden" name="gameId" value="{{$game->id}}">
+                <button type="submit" class="btn btn-primary mb-2">Usuń z mojej listy</button>
+            </div>
+        </form>
+        @else
+        <form class="float-right m-0" method="post" action="{{route('me.games.add')}}">
+            @csrf
+            <div class="form-row">
+                <input type="hidden" name="gameId" value="{{$game->id}}">
+                <button type="submit" class="btn btn-primary mb-2">Dodaj do mojej list</button>
+            </div>
+        </form>
+        @endif
+
+         </h5>
         <div class="card-body">
             <ul>
                 <li>Id: {{ $game->id }}</li>

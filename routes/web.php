@@ -37,6 +37,19 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::post('deleteProfilePicture', 'User\UserController@deleteProfilePicture')
             ->name('deleteProfilePicture');
+
+        //listing, dodanie gry,usuniecie,ocena
+        Route::get('games', 'User\GameController@list')
+            ->name('games.list');
+
+        Route::post('games', 'User\GameController@add')
+            ->name('games.add');
+
+        Route::delete('games', 'User\GameController@remove')
+            ->name('games.remove');
+
+        Route::post('games/rate', 'User\GameController@rate')
+            ->name('games.rate');
     });
 
     //  USERS

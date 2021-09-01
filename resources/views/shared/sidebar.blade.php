@@ -24,8 +24,10 @@
     Lista
 </a>
 
+@can('admin-level')
 <div class="sb-sidenav-menu-heading">Admin panel</div>
 <a class="nav-link" href="{{ route('get.users') }}">
     <div class="sb-nav-link-icon"><i class="bi bi-people-fill"></i></div>
     Użytkownicy
 </a>
+@endcan

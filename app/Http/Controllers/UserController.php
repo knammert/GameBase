@@ -7,52 +7,43 @@ namespace App\Http\Controllers;
 use Facade\Ignition\Support\FakeComposer;
 use Faker\Factory;
 use Illuminate\Http\Request;
+use App\Repository\UserRepository;
+use Illuminate\Support\Facades\Gate;
+
 
 class UserController extends Controller
 {
+
+    private UserRepository $userRepository;
+
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     public function list(Request $request)
     {
+        Gate::authorize('admin-level');
 
-
-        $user = [];
-
-        $faker = Factory::create();
-        $count = $faker->numberBetween(3, 15);
-
-        for ($i = 0; $i < $count; $i++) {
-            $users[] = [
-                'id' => $faker->numberBetween(1, 1000),
-                'name' => $faker->firstName
-            ];
-        }
-        //Zadanie
-        $succesOrFail = $faker->numberBetween(0, 1);
-        $request->session()->flash('succesOrFail', $succesOrFail);
+        $users = $this->userRepository->all();
 
         return view('user.list', [
             'users' => $users
         ]);
     }
 
-    public function Show(Request $request, int $id)
+    public function Show(int $id)
     {
+        Gate::authorize('admin-level');
+
+        $userModel = $this->userRepository->get($id);
+
+        Gate::authorize('view', $userModel);
 
 
-
-        $faker = Factory::create();
-        $user = [
-            'id' => $id,
-            'name' => $faker->name,
-            'firstName' => $faker->firstName,
-            'lastName' => $faker->lastName,
-            'city' => $faker->city,
-            'age' => $faker->numberBetween(10, 40),
-            'html' => '<b>Bold HTML</b>'
-        ];
 
         return view('user.show', [
-            'user' => $user
-
+            'user' => $this->userRepository->get($id)
         ]);
     }
 }

@@ -32,13 +32,23 @@ class UserController extends Controller
         ]);
     }
 
-    public function Show(int $id)
+    public function Show(Request $request, int $id)
     {
-        Gate::authorize('admin-level');
+       $this->authorize('admin-level');
+        // $user = $request->user();
+        // if ($user->cannot('admin-level')) {
+        //     abort(403);
+        // }
 
-        $userModel = $this->userRepository->get($id);
+        // // Gate::authorize('admin-level');
 
-        Gate::authorize('view', $userModel);
+        // $userModel = $this->userRepository->get($id);
+
+        // if ($user->cannot('view', $userModel)) {
+        //     abort(403);
+        // }
+
+        // Gate::authorize('view', $userModel);
 
 
 
